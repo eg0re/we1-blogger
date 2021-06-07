@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+
+<head>
+        <title>Blogger</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script async defer src="https://apis.google.com/js/api.js"></script>
+        <script defer src="js/login.js"></script>
+        <script defer src="js/model.js"></script>
+        <script defer src="js/presenter.js"></script>
+        <script defer src="js/router.js"></script>
+        <script defer src="js/view.js"></script>
+</head>
+
+<body>
+    <header>
+        <h1>head body Admin Panel</h1>
+
+        <!--• Name des/der angemeldeten Nutzer*in-->
+                    <div>
+                <span id="username_header">Not logged in yet   </span><button id="sign-in-or-out-button">Login</button>
+            </div>
+
+        <!--Auswahlmöglichkeit für die anzuzeigende Blog-Übersicht (Anzahl der enthaltenen Posts)-->
+        <ul>
+            <li>
+                <a>Nils kleiner Blog</a> <span>- 2 Posts</span>
+            </li>
+
+            <li>
+                <a>Nils Zocker Blog</a> <span>- 25 Posts</span>
+            </li>
+
+            <li>
+                <a>Nils und Oma </a> <span>- 672 Posts</span>
+            </li>
+
+            <li>
+                <a>Nils Backstube</a> <span>- 12 Posts</span>
+            </li>
+
+            <li>
+                <a>Nils Metal Ecke</a> <span>- 82 Posts</span>
+            </li>
+        </ul>
+
+        <!-- Blog-Info des aktuellen Blogs -->
+
+        <article>
+            <h2>Nils Blog</h2>
+            <span>2 Posts</span>
+            <span>Letzte Änderung: 19.04.21</span>
+            <a>Google-Blogansicht</a>
+        </article>
+
+    </header>
+
+    <footer></footer>
+    
+    <div id="templates" hidden>
+        <div id="templ-blog-overview">
+            <nav>
+                <h2>Blog Übersicht</h2>
+                <ul>
+                    <li>
+                        <button type="button" onclick="alert('Post hinzufügen')">Post hinzufügen</button>
+                    </li>
+                </ul>
+            </nav>
+
+            <article>
+                <header>
+                    <a href="#detail-view">Mein Tag im Zoo</a>
+                    <nav>
+                        <ul>
+                            <li>
+                                <button type="button" onclick="alert('Post löschen')">Post löschen</button>
+                            </li>
+
+                            <li>
+                                <button type="button" onclick="alert('Post editieren')">Post editieren</button>
+                            </li>
+                        </ul>
+                    </nav>
+                </header>
+
+                <section>
+                    <span>veröffentlicht: 14.01.21</span>
+                    <span>zuletzt bearbeitet: 15.01.21</span>
+                    <span>1 Kommentar</span>
+                </section>
+            </article>
+
+            <article>
+                <header>
+                    <a href="#detail-view">Weihnachten mit Opa</a>
+                    <nav>
+                        <ul>
+                            <li>
+                                <button type="button" onclick="alert('Post löschen')">Post löschen</button>
+                            </li>
+
+                            <li>
+                                <button type="button" onclick="alert('Post editieren')">Post editieren</button>
+                            </li>
+                        </ul>
+                    </nav>
+                </header>
+
+                <section>
+                    <span>veröffentlicht: 19.02.21</span>
+                    <span>zuletzt bearbeitet: 19.02.21</span>
+                    <span>0 Kommentare</span>
+                </section>
+
+                <footer>
+                    <!--Drin lassen wenn leer? Mit was füllen?-->
+                </footer>
+            </article>
+
+            <article>
+                <header>
+                    <a href="#detail-view">Mama hat mir Lego geschenkt</a>
+                    <nav>
+                        <ul>
+                            <li>
+                                <button type="button" onclick="alert('Post löschen')">Post löschen</button>
+                            </li>
+
+                            <li>
+                                <button type="button" onclick="alert('Post editieren')">Post editieren</button>
+                            </li>
+                        </ul>
+                    </nav>
+                </header>
+
+                <section>
+                    <span>veröffentlicht: 24.03.21</span>
+                    <span>zuletzt bearbeitet: 15.03.21</span>
+                    <span>2345 Kommentare</span>
+                </section>
+            </article>
+        </div>
+
+        <div id="templ-detail-view">
+            <nav>
+                <h2>Detail Übersicht</h2>
+                <ul>
+                    <li>
+                        <button type="button" onclick="alert('ich führe irgendwann zurück zu overview')">Übersicht</button>
+                    </li>
+                </ul>
+            </nav>
+
+            <article>
+                <header>
+                    <h3>Mein Tag im Zoo</h3>
+
+                    <nav>
+                        <ul>
+                            <li>
+                                <button type="button" onclick="alert('Post löschen')">Post löschen</button>
+                            </li>
+
+                            <li>
+                                <button type="button" onclick="alert('Post editieren')">Post editieren</button>
+                            </li>
+                        </ul>
+                    </nav>
+
+                    <span>veröffentlicht: 14.10.2021 03:34:21 Uhr</span>
+                    <span>zuletzt bearbeitet: 15.10.2021 11:14:40 Uhr</span>
+                </header>
+
+                Heute war ich mit Oma im Zoo. Wir haben uns ein Eis geholt, da es sehr warm war. Mir waren die Nilpferde am liebsten, da sie so groß und majestätisch sind. Doof waren die Insekten, da sie so eklig sind! Nach den Flamingos musste ich auf die Toilette.
+                Danach wollten wir eigentlich Pizza essen gehen, aber ich war zu müde... Auf dem Heimweg wurde ich jedoch wieder wacher, weshalb wir uns noch einen Döner besorgt haben.<br> Es war ein sehr schöner Tag!
+            </article>
+
+            <article>
+                <header>
+                    <h3>Kommentare</h3>
+                    <span id="c_author">Georg N.</span>
+                    <span id="c_date_l">14.10.2021 05:49:12 Uhr</span>
+                </header>
+
+                <section>
+                    Man dein Tag hat mir echt gut gefallen!! Wie wäre es wenn du mal den Tierpark in Berlin besuchst? Da gibt es auch einige Elefanten oder Giraffen. Mach weiter so!
+                </section>
+
+                <footer>
+                    <nav>
+                        <ul>
+                            <li>
+                                <button type="button" id="btn_delete_comment" onclick="alert('delete comment')">Kommentar
+                                    löschen</button>
+                            </li>
+                        </ul>
+                    </nav>
+                </footer>
+            </article>
+        </div>
+    </div>
+</body>
+
+</html>
