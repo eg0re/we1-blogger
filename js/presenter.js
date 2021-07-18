@@ -3,18 +3,21 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+/* global initPageView */
+
 "use strict";
 
 const presenter = (function () {
     // Private Variablen und Funktionen
     let init = false;
-    let owner = undefined;
     let blogId = -1;
     let postId = -1;
+    let owner = undefined;
+    let detail = false;
 
     // Initialisiert die allgemeinen Teile der Seite
     function initPage() {
-        console.log('initpage() ausgeführt')
+        console.log('initpage() ausgeführt');
         model.getSelf((result) => {
             owner = result.displayName;
             console.log(`Presenter: Nutzer*in ${owner} hat sich angemeldet.`);
@@ -28,7 +31,8 @@ const presenter = (function () {
                 if(blogId === -1){
                     let mostRecent;
                     for(let blog_i of blogs){
-                        if(mostRecent === undefined || blog_i.b_last_edit > mostRecent.b_last_edit){
+                        if(mostRecent === undefined ||
+                                blog_i.b_lastedit > mostRecent.b_lastedit){
                             mostRecent = blog_i;
                         }
                     }
@@ -36,9 +40,8 @@ const presenter = (function () {
                         blogId = mostRecent.blogId;
                     }
                 }
-
+                
                 replaceText("username_header", owner);
-
                 let headerNav = initPageView.render(blogs);
                 replace("nav_header", headerNav);
 
@@ -123,8 +126,8 @@ const presenter = (function () {
            detail = false;
            if (!init)
                initPage();
-           model.getAll((result) => {
-               let page = detailView.render(result);
+           model.getAllBlogs((result) => {
+               let page = blogView.render(result);
                replace('main-content', page);
            }); 
         },

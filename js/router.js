@@ -24,9 +24,11 @@ const router = (function () {
 
         // Wird als Eventhandler an ein <a>-Element gebunden
         handleNavigationEvent: function (event) {
-            event.preventDefault();
-            let url = event.target.href;
-            this.navigateToPage(url);
+            if(!(event.target.rel && event.target.rel === "external")) {
+                event.preventDefault();
+                let url = event.target.href;
+                this.navigateToPage(url);
+            }
         },
 
         // Wird als EventHandler aufgerufen, sobald die Pfeiltasten des Browsers betätigt werden
@@ -48,15 +50,38 @@ const router = (function () {
     router.addRoute('', function () {
         presenter.showStartPage();
     });
-
+    
+    // Übersicht eines Blogs mit allen Posts
     router.addRoute('blogOverview', function (url) {
         // Get the index of which blog we want to show and call the appropriate function.
-        var blogId = url.split('blogOverview/')[1].trim();
-        //viewModel.blogId = id;
+        let blogId = url.split('blogOverview/')[1].trim();
         presenter.showOverview(blogId);
     });
-
-
+    
+    // Detailansicht eines Posts
+    router.addRoute('detailView', function (url){
+       let idPath = url.split('detailView/')[1].trim();
+       let ids = idPath.split('/');
+       let blogId = ids[0];
+       let postId = ids[1];
+       presenter.showPostDetailview(blogId, postId);
+    });
+    
+    // Wenn nach edit/blogId eine postId vorhanden ist Bearbeiten-Ansicht, wenn 
+    // nicht, dann Post-hinzufügen-Ansicht
+    router.addRoute('edit', function(url){
+       let idPath = url.split('/edit/')[1];
+       let ids = idPath.split('/');
+       let blogId = ids[0];
+       let postId = ids[1];
+       if(postId){
+           postId = postId.trim();
+           presenter.showEditPostView(blogId, postId);
+       }else{
+           presenter.showAddPostView(blogId);
+       }
+    });
+    
     if (window) {
         window.addEventListener('popstate', (event) => {
             router.handleRouting();

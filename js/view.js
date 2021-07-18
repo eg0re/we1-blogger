@@ -43,21 +43,21 @@ const initPageView = {
         
 
 
-const pageView = {
-    render(data) {
-        
-    }
-};
+//const blogView = {
+//    render(id, post) {
+//        
+//    }
+//};
 
 
-const detailView = {
-    render(data, comments) {
-        let page = document.getElementById('templ-detail-view').cloneNode(true);
-        page.removeAttribute('templ-detail-view');
-        let post = data.getPost();
-        let cont = page.InnerHTML;
-        let releasedate = post.format(post.date, true);
-        let lastedit = post.format(post.updated, true);
-        cont = cont.replace("%p_title%", post.title).replace("%p_releasedate_f%", releasedate).replace("%p_last_edit_f%", lastedit).replace("%p_content%", post.content);
-    },
-};
+//const detailView = {
+//    render(post, comments) {
+//        let page = document.getElementById('templ-detail-view').cloneNode(true);
+//        page.removeAttribute('templ-detail-view');
+//        let post = post.getPost();
+//        let cont = page.InnerHTML;
+//        let releasedate = post.format(post.date, true);
+//        let lastedit = post.format(post.updated, true);
+//        cont = cont.replace("%p_title%", post.title).replace("%p_releasedate_f%", releasedate).replace("%p_last_edit_f%", lastedit).replace("%p_content%", post.content);
+//    },
+//};
