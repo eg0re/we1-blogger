@@ -43,6 +43,7 @@ const router = (function () {
 
 // Selbsaufrufende Funktionsdeklaration: (function name(){..})();
 (function initRouter() {
+    console.log('initRouter() führt sich aus')
     // The "Startpage".
     router.addRoute('', function () {
         presenter.showStartPage();
@@ -52,7 +53,7 @@ const router = (function () {
         // Get the index of which blog we want to show and call the appropriate function.
         var blogId = url.split('blogOverview/')[1].trim();
         //viewModel.blogId = id;
-        presenter.showBlogOverview(blogId);
+        presenter.showOverview(blogId);
     });
 
 

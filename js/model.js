@@ -37,7 +37,7 @@ const model = (function () {
     Blog.prototype.setFormatDates = function(long) {
         this.b_creationdate_f = formatDate(this.b_creationdate, long);
         this.b_lastedit_f = formatDate(this.b_lastedit, long);
-    }
+    };
     
     function Post(p_id, b_id, p_title, p_creationdate, p_lastedit, p_content, p_nrcomments){
         this.p_id = p_id;
@@ -51,7 +51,7 @@ const model = (function () {
     Post.prototype.setFormatDates = function(long) {
         this.p_creationdate_f = formatDate(this.p_creationdate, long);
         this.p_lastedit_f = formatDate(this.p_lastedit, long);
-    }
+    };
     
     function Comment(c_id, b_id, p_id, c_author, c_creationdate, c_lastedit, c_content){
         this.c_id = c_id;

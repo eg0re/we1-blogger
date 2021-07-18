@@ -3,62 +3,75 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 "use strict";
+
 const presenter = (function () {
     // Private Variablen und Funktionen
     let init = false;
+    let owner = undefined;
     let blogId = -1;
     let postId = -1;
-    let owner = undefined;
 
     // Initialisiert die allgemeinen Teile der Seite
     function initPage() {
-        console.log("Presenter: Aufruf von initPage()");
-        
-        // Hier werden zunächst nur zu Testzwecken Daten vom Model abgerufen und auf der Konsole ausgegeben 
-         
-        // Nutzer abfragen und Anzeigenamen als owner setzen
+        console.log('initpage() ausgeführt')
         model.getSelf((result) => {
             owner = result.displayName;
             console.log(`Presenter: Nutzer*in ${owner} hat sich angemeldet.`);
-        });
 
-        model.getAllBlogs((blogs) => {
-            console.log("--------------- Alle Blogs --------------- ");
-            if (!blogs)
-                return;
-            for (let b of blogs) {
-                b.setFormatDates(true);
-                console.log(b);
-            }
-            blogId = blogs[0].b_id
-            model.getAllPostsOfBlog(blogId, (posts) => {
-                console.log("--------------- Alle Posts des ersten Blogs --------------- ");
-                if (!posts)
+            model.getAllBlogs((blogs) => {
+                if(blogs === undefined) 
                     return;
-                for (let p of posts) {
-                    console.log(p);
-                    
-                }
-                postId = posts[1].p_id;
-                model.getAllCommentsOfPost(blogId, postId, (comments) => {
-                    console.log("--------------- Alle Comments des zweiten Post --------------- ");
-                    if (!comments)
-                        return;
-                    for (let c of comments) {
-                        console.log(c);
+                
+                // Wenn blogId -1 ist, wird der Blog, welcher zuletzt geändert
+                // wurde, angezeigt. Sonst wird der Blog mit der id in blogId angezeigt.
+                if(blogId === -1){
+                    let mostRecent;
+                    for(let blog_i of blogs){
+                        if(mostRecent === undefined || blog_i.b_last_edit > mostRecent.b_last_edit){
+                            mostRecent = blog_i;
+                        }
                     }
-                });
+                    if(mostRecent){
+                        blogId = mostRecent.blogId;
+                    }
+                }
+
+                replaceText("username_header", owner);
+
+                let headerNav = initPageView.render(blogs);
+                replace("nav_header", headerNav);
+
+                init = true;
+                let main = document.body;
+                main.addEventListener("click", handleClicks);
+                if (window.location.pathname === "/")
+                    router.navigateToPage('/blogOverview/' + blogId);
             });
         });
-        
-        // Das muss später an geeigneter Stelle in Ihren Code hinein.
-        init = true;
-        //Falls auf Startseite, navigieren zu Uebersicht
-        if (window.location.pathname === "/")
-            router.navigateToPage('/blogOverview/' + blogId);
     }
+    
+    // Eventhandler für Navigation
+    function handleClicks(event) {
+        let source = null;
+        switch(event.target.tagName){
+            case "A":
+                router.handleNavigationEvent(event);
+                break;
+            case "BUTTON":
+                source = event.target;
+                break;
+            default:
+                source = event.target.closest("LI");
+                break;
+        }
+        if(source){
+            let path = source.dataset.path;
+            if(path)
+                router.navigateToPage(path);
+        }
+    }
+    
     // Sorgt dafür, dass bei einem nicht-angemeldeten Nutzer nur noch der Name der Anwendung
     // und der Login-Button angezeigt wird.
     function loginPage() {
@@ -68,6 +81,24 @@ const presenter = (function () {
         blogId = -1;
         postId = -1;
         owner = undefined;
+    }
+    
+    // Entfernt möglichen Inhalt aus dem Element mit der id "id" und fügt das 
+    // Element "element" als Kind hinzu.  
+    function replace(id, element){
+        let main = document.getElementById(id);
+        let content = main.firstElementChild;
+        if(content) 
+            content.remove();
+        if(element) 
+            main.append(element);
+    }
+    
+    // Setzt das innerHTML Attribut im Element mit der id "id" zum Wert in "text"
+    function replaceText(id, text){
+        let main = document.getElementById(id);
+        if(main)
+            main.innerHTML = text;
     }
 
 
@@ -87,8 +118,26 @@ const presenter = (function () {
         },
 
         // Wird vom Router aufgerufen, wenn eine Blog-Übersicht angezeigt werden soll
-        showBlogOverview(bid) {
-           console.log(`Aufruf von presenter.showBlogOverview(${blogId})`); 
+        showOverview() {
+           console.log(`Aufruf von presenter.showOverview(${blogId})`);
+           detail = false;
+           if (!init)
+               initPage();
+           model.getAll((result) => {
+               let page = detailView.render(result);
+               replace('main-content', page);
+           }); 
+        },
+        
+        showDetailView(id) {
+            detail = true;
+            if (!init)
+                initPage();
+            model.getAllPostsOfBlog(id, (result) => {
+                let page = detailView.render(result);
+                replace('main-content', page);
+            });
         }
     };
+    
 })();
