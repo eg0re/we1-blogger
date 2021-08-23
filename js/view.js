@@ -34,6 +34,7 @@ const initPageView = {
             let blogInfo = liTempl.cloneNode(true);
             let wrapper = document.createElement("DIV");
             wrapper.appendChild(blogInfo);
+            console.log("filling data info")
             util.setDataInfo(wrapper, b);
             cont.appendChild(wrapper.firstElementChild);
         }
@@ -43,21 +44,15 @@ const initPageView = {
         
 
 
-//const blogView = {
-//    render(id, post) {
-//        
-//    }
-//};
+const blogView = {
+    render(id, post) {
+        
+    }
+};
 
 
 //const detailView = {
 //    render(post, comments) {
-//        let page = document.getElementById('templ-detail-view').cloneNode(true);
-//        page.removeAttribute('templ-detail-view');
-//        let post = post.getPost();
-//        let cont = page.InnerHTML;
-//        let releasedate = post.format(post.date, true);
-//        let lastedit = post.format(post.updated, true);
-//        cont = cont.replace("%p_title%", post.title).replace("%p_releasedate_f%", releasedate).replace("%p_last_edit_f%", lastedit).replace("%p_content%", post.content);
+//    
 //    },
 //};

@@ -37,7 +37,7 @@ const presenter = (function () {
                         }
                     }
                     if(mostRecent){
-                        blogId = mostRecent.blogId;
+                        blogId = mostRecent.b_id;
                     }
                 }
                 
