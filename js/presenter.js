@@ -121,13 +121,15 @@ const presenter = (function () {
         },
 
         // Wird vom Router aufgerufen, wenn eine Blog-Übersicht angezeigt werden soll
-        showOverview() {
-           console.log(`Aufruf von presenter.showOverview(${blogId})`);
+        showOverview(bid) {
+           console.log(`Aufruf von presenter.showOverview(${bid})`);
            detail = false;
-           if (!init)
-               initPage();
-           model.getAllBlogs((result) => {
-               let page = blogView.render(result);
+           if (!init) initPage();
+           model.getAllPostsOfBlog(bid, (posts) => {
+               posts.forEach(
+                   p => p.setFormatDates(true)
+               );
+               let page = blogView.render(bid, posts);
                replace('main-content', page);
            }); 
         },

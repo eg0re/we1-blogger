@@ -48,7 +48,7 @@ and open the template in the editor.
             </ul>
         </div>
         
-        <div id="templ_current_blog">
+        <div id="templ-current-blog">
             <div>
                 <h2>%b_name%</h2>
                 <a href="%blogUrl%" rel="external" target="_blank">
@@ -61,25 +61,23 @@ and open the template in the editor.
         </div>
         
         <div id="templ-blog-overview">
-            <article>
-                <header>
+            <header>
                     <h3>Blog Übersicht</h3>
                     <nav>
                         <!--post hinzufuegen button-->
                     </nav>
-                </header>
+            </header>
 
-                <article data-path="">
-                    <header>
-                        <a href="/detailView/%blogId%/%postId%">%p_title%</a>
-                        <nav>
-                            <!--post editieren, post loeschen Button-->
-                        </nav>
-                    </header>
-                        <p>veröffentlicht: %p_releasedate_f%</p>
-                        <p>zuletzt bearbeitet: %p_last_edit_f%</p>
-                        <p>%p_nr_comments% Kommentar(e)</p>
-                </article>
+            <article id="blog-overview-post">
+                <header>
+                    <a href="/detailView/%b_id%/%p_id%">%p_title%</a>
+                    <nav>
+                        <!--post editieren, post loeschen Button-->
+                    </nav>
+                </header>
+                    <p>veröffentlicht: %p_creationdate_f%</p>
+                    <p>zuletzt bearbeitet: %p_lastedit_f%</p>
+                    <p>%p_nrcomments% Kommentar(e)</p>
             </article>
         </div>
 

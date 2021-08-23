@@ -1,8 +1,3 @@
-/* 
- * 
- /*
- * Adresse über die man auf die Webschnittstelle meines Blogs zugreifen kann:
- */
 "use strict";
 const model = (function () {
     // Private Variablen
@@ -63,8 +58,8 @@ const model = (function () {
         this.c_content = c_content;
     }
     Comment.prototype.setFormatDates = function(long){
-        this.c_releasedate_f = formatDate(this.c_releasedate, long);
-        this.c_last_edit_f = formatDate(this.c_last_edit, long);
+        this.c_creationdate_f = formatDate(this.c_creationdate, long);
+        this.c_lastedit_f = formatDate(this.c_lastedit, long);
     };
 
     // Oeffentliche Methoden

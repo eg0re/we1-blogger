@@ -34,7 +34,7 @@ const initPageView = {
             let blogInfo = liTempl.cloneNode(true);
             let wrapper = document.createElement("DIV");
             wrapper.appendChild(blogInfo);
-            console.log("filling data info")
+            console.log("filling data info");
             util.setDataInfo(wrapper, b);
             cont.appendChild(wrapper.firstElementChild);
         }
@@ -45,8 +45,19 @@ const initPageView = {
 
 
 const blogView = {
-    render(id, post) {
-        
+    render(id, posts) {
+        console.log("rendering Posts from Blog with the id: " + id );
+        let cont = document.createElement("div")
+        let templ = util.childCloneNode("templ-blog-overview", true);
+        let header = templ.children[0];
+        templ.removeChild(templ.children[0]);
+        cont.append(header);
+        for (const post of posts) {
+            util.setDataInfo(templ, post);
+            console.log(post);
+            cont.append(templ.children[0]);
+        }
+        return cont;
     }
 };
 
