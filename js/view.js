@@ -41,21 +41,18 @@ const initPageView = {
         return cont;
     }
 };
-        
-
 
 const blogView = {
     render(id, posts) {
         console.log("rendering Posts from Blog with the id: " + id );
-        let cont = document.createElement("div")
-        let templ = util.childCloneNode("templ-blog-overview", true);
-        let header = templ.children[0];
-        templ.removeChild(templ.children[0]);
-        cont.append(header);
+        let cont = document.createElement("div");
+        let articleTempl = util.childCloneNode("templ-blog-overview", true);
+        cont.append(articleTempl.children[0]);
         for (const post of posts) {
-            util.setDataInfo(templ, post);
-            console.log(post);
-            cont.append(templ.children[0]);
+            let articlePostTempl = util.childCloneNode("blog-overview-post", true);
+            util.setDataInfo(articlePostTempl, post);
+            cont.append(articlePostTempl);
+            console.log("ADDING POST");
         }
         return cont;
     }

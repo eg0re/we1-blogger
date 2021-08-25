@@ -12,6 +12,8 @@ and open the template in the editor.
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script async defer src="https://apis.google.com/js/api.js"></script>
+        <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="css/style.css" type="text/css">
         <script defer src="js/login.js"></script>
         <script defer src="js/model.js"></script>
         <script defer src="js/presenter.js"></script>
@@ -41,7 +43,7 @@ and open the template in the editor.
         
         <div id="templ-head-nav">
             <ul>
-                <li>
+                <li data-path="/blogOverview/%b_id%">
                      <span>%b_name%</span>
                      <span>%b_nrposts% Post(s)</span>
                 </li>
@@ -68,7 +70,7 @@ and open the template in the editor.
                     </nav>
             </header>
 
-            <article id="blog-overview-post">
+            <article id="blog-overview-post" class="blog-overview-post">
                 <header>
                     <a href="/detailView/%b_id%/%p_id%">%p_title%</a>
                     <nav>
