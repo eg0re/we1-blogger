@@ -17,10 +17,10 @@ const presenter = (function () {
 
     // Initialisiert die allgemeinen Teile der Seite
     function initPage() {
-        console.log('initpage() ausgeführt');
+        console.log('initpage() called');
         model.getSelf((result) => {
             owner = result.displayName;
-            console.log(`Presenter: Nutzer*in ${owner} hat sich angemeldet.`);
+            console.log(`user ${owner} logged in.`);
 
             model.getAllBlogs((blogs) => {
                 if(blogs === undefined) 
@@ -78,8 +78,8 @@ const presenter = (function () {
     // Sorgt dafür, dass bei einem nicht-angemeldeten Nutzer nur noch der Name der Anwendung
     // und der Login-Button angezeigt wird.
     function loginPage() {
-        console.log("Presenter: Aufruf von loginPage()");
-        if(owner!== undefined) console.log(`Presenter: Nutzer*in ${owner} hat sich abgemeldet.`);
+        console.log("call from loginPage()");
+        if(owner!== undefined) console.log(`user ${owner} logged out.`);
         init = false;
         blogId = -1;
         postId = -1;
@@ -109,7 +109,7 @@ const presenter = (function () {
     return {
         // Wird vom Router aufgerufen, wenn die Startseite betreten wird
         showStartPage() {
-            console.log("Aufruf von presenter.showStartPage()");
+            console.log("call presenter.showStartPage()");
             // Wenn vorher noch nichts angezeigt wurde, d.h. beim Einloggen
             if (model.isLoggedIn()) { // Wenn der Nutzer eingeloggt ist
                 initPage();
@@ -122,7 +122,7 @@ const presenter = (function () {
 
         // Wird vom Router aufgerufen, wenn eine Blog-Übersicht angezeigt werden soll
         showOverview(bid) {
-           console.log(`Aufruf von presenter.showOverview(${bid})`);
+           console.log(`--- call presenter.showOverview(${bid}) ---`);
            detail = false;
            if (!init) initPage();
            model.getAllPostsOfBlog(bid, (posts) => {
@@ -131,15 +131,19 @@ const presenter = (function () {
                );
                let page = blogView.render(bid, posts);
                replace('main-content', page);
+               console.log("--- replace main-content with blog-overview ---");
            }); 
         },
         
-        showDetailView(id) {
+        // Wird gecalled, wenn eine Post Detailansicht angezeigt werden soll
+        showPostDetailView(blogId, postId) {
+            console.log(`--- call presenter.showDetailView(${blogId} - ${postId}) ---`);
             detail = true;
             if (!init)
                 initPage();
-            model.getAllPostsOfBlog(id, (result) => {
-                let page = detailView.render(result);
+            model.getPost(blogId, postId,  (post) => {
+                post.setFormatDates(true);
+                let page = detailView.render(post);
                 replace('main-content', page);
             });
         }

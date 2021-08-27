@@ -34,14 +34,14 @@ const model = (function () {
         this.b_lastedit_f = formatDate(this.b_lastedit, long);
     };
     
-    function Post(p_id, b_id, p_title, p_creationdate, p_lastedit, p_content, p_nrcomments){
+    function Post(p_id, b_id, p_title, p_creationdate, p_lastedit, p_content, p_nr_comments){
         this.p_id = p_id;
         this.b_id = b_id;
         this.p_title = p_title;
         this.p_creationdate = p_creationdate;
         this.p_lastedit = p_lastedit;
         this.p_content = p_content;
-        this.p_nrcomments = p_nrcomments;
+        this.p_nr_comments = p_nr_comments;
     }
     Post.prototype.setFormatDates = function(long) {
         this.p_creationdate_f = formatDate(this.p_creationdate, long);

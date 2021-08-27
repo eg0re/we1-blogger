@@ -337,13 +337,13 @@ button,
   margin-left: 2.5rem;
 }
 
-.detail_view_section {
+.detail_view_article {
   width: 100% !important;
   padding: 2.5rem 2.5rem 4rem 2.5rem;
   flex-direction: column;
 }
 
-.detail_view_section, .blog-overview-post, .comments, #newPost {
+.detail_view_article, .blog-overview-post, .comments, #newPost {
     background: white;
     border-radius: 1rem;
     box-shadow: 0 3px 12px rgba(0, 0, 0, 0.01), 0 4px 8px rgba(0, 0, 0, 0.04);
@@ -352,11 +352,11 @@ button,
     flex-wrap: wrap;
 }
 
-.detail_view_section>h2 {
+.detail_view_article>h2 {
   width: 100%;
 }
 
-.detail_view_section_buttons {
+.detail_view_article_buttons {
   margin: 0 3rem 1rem 0;
 }
 

@@ -33,7 +33,7 @@ const router = (function () {
 
         // Wird als EventHandler aufgerufen, sobald die Pfeiltasten des Browsers betätigt werden
         handleRouting: function () {
-            console.log("Aufruf von router.handleRouting(): Navigation zu: " + window.location.pathname);
+            console.log("call router.handleRouting(): navigates to: " + window.location.pathname);
             const currentPage = window.location.pathname.split('/')[1];
             let routeHandler = mapRouteToHandler.get(currentPage);
             if (routeHandler === undefined)
@@ -45,7 +45,7 @@ const router = (function () {
 
 // Selbsaufrufende Funktionsdeklaration: (function name(){..})();
 (function initRouter() {
-    console.log('initRouter() führt sich aus')
+    console.log('initRouter() calling itself')
     // The "Startpage".
     router.addRoute('', function () {
         presenter.showStartPage();
@@ -64,7 +64,7 @@ const router = (function () {
        let ids = idPath.split('/');
        let blogId = ids[0];
        let postId = ids[1];
-       presenter.showPostDetailview(blogId, postId);
+       presenter.showPostDetailView(blogId, postId);
     });
     
     // Wenn nach edit/blogId eine postId vorhanden ist Bearbeiten-Ansicht, wenn 

@@ -16,7 +16,7 @@
     }
 
     function initClient() {
-        console.log('initClient() wird ausgeführt')
+        console.log('initClient() getting called')
         // Retrieve the discovery document for version 3 of Google Drive API.
         // In practice, your app can retrieve one or more discovery documents.
         var discoveryUrl = 'https://www.googleapis.com/discovery/v1/apis/blogger/v3/rest';

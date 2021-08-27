@@ -79,29 +79,28 @@ and open the template in the editor.
                 </header>
                     <p>veröffentlicht: %p_creationdate_f%</p>
                     <p>zuletzt bearbeitet: %p_lastedit_f%</p>
-                    <p>%p_nrcomments% Kommentar(e)</p>
+                    <p>%p_nr_comments% Kommentar(e)</p>
             </article>
         </div>
 
         <div id="templ-detail-view">
-            <article>
-                <header>
+                <header class="detail_view_header">
                     <nav>
-                        <a href="">go back to overview</a> <!<!-- kann man ja spaeter mit nem Pfeil machen "<-" -->
+                       <a href="/blogOverview/%b_id%">&larr;&nbsp;</a>
                     </nav>
                     <h3>Detail Übersicht</h3>
                 </header>
 
-                <article>
+                <article class="detail_view_article">
                         <header>
                             <h2>%p_title%</h2>
                             <div>
-                                <p>veröffentlicht: %p_releasedate_f%</p>
-                                <p>zuletzt bearbeitet: %p_last_edit_f%</p>
+                                <p>veröffentlicht: %p_creationdate_f%</p>
+                                <p>zuletzt bearbeitet: %p_lastedit_f%</p>
                             </div>
                         </header>
 
-                        <section>%p_content%</section>
+                        <section class="post_content">%p_content%</section>
 
                         <footer>
                             <nav>
@@ -133,7 +132,6 @@ and open the template in the editor.
                         </footer>
                     </section>
                 </article>
-            </article>
         </div>
     </div>
 </body>

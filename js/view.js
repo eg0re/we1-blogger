@@ -23,6 +23,7 @@ const util = {
 const initPageView = {
     // Erstellt eine View für die Startseite
     render(blogs) {
+        console.log("creating view for main page");
         if(!blogs) 
             return;
 
@@ -44,7 +45,7 @@ const initPageView = {
 
 const blogView = {
     render(id, posts) {
-        console.log("rendering Posts from Blog with the id: " + id );
+        console.log("- creating view for Blog(" + id + ")");
         let cont = document.createElement("div");
         let articleTempl = util.childCloneNode("templ-blog-overview", true);
         cont.append(articleTempl.children[0]);
@@ -52,15 +53,21 @@ const blogView = {
             let articlePostTempl = util.childCloneNode("blog-overview-post", true);
             util.setDataInfo(articlePostTempl, post);
             cont.append(articlePostTempl);
-            console.log("ADDING POST");
+            console.log("-- adding post to view (" + post.p_id + ")");
         }
         return cont;
     }
 };
 
 
-//const detailView = {
-//    render(post, comments) {
-//    
-//    },
-//};
+const detailView = {
+    render(post) {
+        console.log("- creating detailview for Blog(" + post.b_id + ")");
+        let cont = document.createElement("div");
+        let detailTempl = util.childCloneNode("templ-detail-view", true);
+        cont.append(detailTempl.children[0]);
+        cont.append(detailTempl);
+        util.setDataInfo(cont, post);
+        return cont;
+    }
+};
