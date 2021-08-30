@@ -44,6 +44,8 @@ const presenter = (function () {
                 replaceText("username_header", owner);
                 let headerNav = initPageView.render(blogs);
                 replace("nav_header", headerNav);
+                
+                updateCurrentBlogTile(blogId);
 
                 init = true;
                 let main = document.body;
@@ -51,6 +53,22 @@ const presenter = (function () {
                 if (window.location.pathname === "/")
                     router.navigateToPage('/blogOverview/' + blogId);
             });
+        });
+    }
+    
+        // Aktualisiert die Kurzzusammenfassung des Blogs, der derzeitig angezeigt wird
+    function updateCurrentBlogTile(id) {
+        if(id === undefined || id === -1) 
+            return;
+        
+        model.getBlog(id, (blog) => {
+            blog.setFormatDates(false);
+            let oldTile = document.getElementById("visible-current-blog");
+            if(oldTile) oldTile.remove();
+            
+            let newTile = currentBlogTileView.render(blog);
+            let head = document.getElementById("head");
+            head.appendChild(newTile);
         });
     }
     

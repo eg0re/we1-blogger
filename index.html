@@ -53,13 +53,14 @@ and open the template in the editor.
         <div id="templ-current-blog">
             <div>
                 <h2>%b_name%</h2>
-                <a href="%blogUrl%" rel="external" target="_blank">
-                    Blogger
+                <a href="%b_url%" rel="external" target="_blank">
+                    <!-- Quelle 21.12.20: https://commons.wikimedia.org/wiki/File:Blogger.svg-->
+                    <img src="../images/blogger_logo.svg" alt="Blogger Icon" width="30" height="30">
                 </a>
             </div>
-            <p>%nr_b_posts% Post(s)</p>
+            <p>%b_nrposts% Post(s)</p>
             <p>Erstellungsdatum: %b_creationdate_f%</p>
-            <p>Letzte Änderung: %b_last_edit_f%</p>
+            <p>Letzte Änderung: %b_lastedit_f%</p>
         </div>
         
         <div id="templ-blog-overview">

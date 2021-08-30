@@ -59,15 +59,23 @@ const blogView = {
     }
 };
 
+const currentBlogTileView = {
+    // Erstellt eine View, die Informationen zum ausgewählten Blog anzeigt
+    render(blog) {
+        let cont = util.childCloneNode("templ-current-blog", false);
+        cont.setAttribute("id", "visible-current-blog");
+        util.setDataInfo(cont, blog);
+        return cont;
+    }
+};
+
 
 const detailView = {
     render(post) {
         console.log("- creating detailview for Blog(" + post.b_id + ")");
-        let cont = document.createElement("div");
-        let detailTempl = util.childCloneNode("templ-detail-view", true);
-        cont.append(detailTempl.children[0]);
-        cont.append(detailTempl);
+        let cont = util.childCloneNode("templ-detail-view", true);
         util.setDataInfo(cont, post);
         return cont;
     }
 };
+
