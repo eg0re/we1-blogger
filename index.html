@@ -58,9 +58,9 @@ and open the template in the editor.
                     <img src="../images/blogger_logo.svg" alt="Blogger Icon" width="30" height="30">
                 </a>
             </div>
-            <p>%b_nrposts% Post(s)</p>
-            <p>Erstellungsdatum: %b_creationdate_f%</p>
-            <p>Letzte Änderung: %b_lastedit_f%</p>
+            <p class="secondary-info">%b_nrposts% Post(s)</p>
+            <p class="secondary-info">Erstellungsdatum: %b_creationdate_f%</p>
+            <p class="secondary-info">Letzte Änderung: %b_lastedit_f%</p>
         </div>
         
         <div id="templ-blog-overview">
@@ -78,8 +78,8 @@ and open the template in the editor.
                         <!--post editieren, post loeschen Button-->
                     </nav>
                 </header>
-                    <p>veröffentlicht: %p_creationdate_f%</p>
-                    <p>zuletzt bearbeitet: %p_lastedit_f%</p>
+                    <p class="secondary-info">veröffentlicht: %p_creationdate_f%</p>
+                    <p class="secondary-info">zuletzt bearbeitet: %p_lastedit_f%</p>
                     <p>%p_nr_comments% Kommentar(e)</p>
             </article>
         </div>
@@ -96,8 +96,8 @@ and open the template in the editor.
                         <header>
                             <h2>%p_title%</h2>
                             <div>
-                                <p>veröffentlicht: %p_creationdate_f%</p>
-                                <p>zuletzt bearbeitet: %p_lastedit_f%</p>
+                                <p class="secondary-info">veröffentlicht: %p_creationdate_f%</p>
+                                <p class="secondary-info">zuletzt bearbeitet: %p_lastedit_f%</p>
                             </div>
                         </header>
 
@@ -110,18 +110,18 @@ and open the template in the editor.
                         </footer>
                 </article>
 
-                <article>
+                <article class="comments_wrapper">
                     <header>
-                        <h3>%p_nr_comments% Kommentar(e)</h3>
+                        <h3 class="comments-header">%p_nr_comments% Kommentar(e)</h3>
                     </header>
 
-                    <section>
+                    <section class="comments">
                         <header>
                             <p>
-                                <a href="">%c_author_name%</a>
+                                <a href="%c_author_url%" rel="external">%c_author%</a>
                             </p>
-                            <p>veröffentlicht: %c_releasedate_f%</p>
-                            <p>zuletzt bearbeitet: %c_last_edit_f%</p>
+                            <p class="secondary-info">veröffentlicht: %c_creationdate_f%</p>
+                            <p class="secondary-info">zuletzt bearbeitet: %c_lastedit_f%</p>
                         </header>
 
                         <section>%c_content%</section>

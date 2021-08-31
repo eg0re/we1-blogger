@@ -71,10 +71,27 @@ const currentBlogTileView = {
 
 
 const detailView = {
-    render(post) {
+    render(post, comments) {
         console.log("- creating detailview for Blog(" + post.b_id + ")");
         let cont = util.childCloneNode("templ-detail-view", true);
+        let commentSection = cont.lastElementChild;
+        let commentTempl = commentSection.lastElementChild;
+        commentTempl.remove();
+        
+        if(comments.length !== 0) {
+            for (let c of comments) {
+                let temp = commentTempl.cloneNode(true);
+                util.setDataInfo(temp, c);
+                console.log("SAODIJASOIDJ");
+                console.log(temp);
+                commentSection.appendChild(temp);
+                console.log("AAAAAAAAAAA");
+                console.log(temp);
+            }
+        }
+        
         util.setDataInfo(cont, post);
+        console.log(cont);
         return cont;
     }
 };

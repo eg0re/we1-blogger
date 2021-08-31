@@ -385,6 +385,16 @@ button,
   margin: 2rem 0 2rem 2.5rem;
 }
 
+.comments_wrapper {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+}
+
+.secondary-info {
+    color: #6f6f6f;
+}
+
 .comments {
   display: flex;
   flex-direction: column;

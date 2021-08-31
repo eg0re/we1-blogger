@@ -93,6 +93,16 @@ const presenter = (function () {
         }
     }
     
+    function handleActions(event) {
+        let source = event.target.closest("LI");
+        if(source){
+            let action = source.dataset.action;
+            if(action)
+                presenter[action](source.dataset.id, source);
+        }
+    }
+    
+    
     // Sorgt dafür, dass bei einem nicht-angemeldeten Nutzer nur noch der Name der Anwendung
     // und der Login-Button angezeigt wird.
     function loginPage() {
@@ -161,8 +171,13 @@ const presenter = (function () {
                 initPage();
             model.getPost(blogId, postId,  (post) => {
                 post.setFormatDates(true);
-                let page = detailView.render(post);
-                replace('main-content', page);
+                
+                model.getAllCommentsOfPost(blogId, postId, (comments) => {
+                    comments.forEach(c => c.setFormatDates(true));
+                    let page = detailView.render(post, comments);
+                    page.addEventListener("click", handleActions);
+                    replace('main-content', page); 
+                });
             });
         }
     };

@@ -48,11 +48,12 @@ const model = (function () {
         this.p_lastedit_f = formatDate(this.p_lastedit, long);
     };
     
-    function Comment(c_id, b_id, p_id, c_author, c_creationdate, c_lastedit, c_content){
+    function Comment(c_id, b_id, p_id, c_author, c_author_url, c_creationdate, c_lastedit, c_content){
         this.c_id = c_id;
         this.b_id = b_id;
         this.p_id = p_id;
         this.c_author = c_author;
+        this.c_author_url = c_author_url;
         this.c_creationdate = c_creationdate;
         this.c_lastedit = c_lastedit;
         this.c_content = c_content;
@@ -196,13 +197,13 @@ const model = (function () {
 
             request.execute((result) => {
                 let comments_n = [];
-                if (result.items !== undefined) {
-                    for( let item of results.items) {
+                if(result.items  !== undefined){
+                    for(let item of result.items){
                         comments_n.push(
                             new Comment(
-                                item.id,
-                                item.blog.id,
-                                item.post.id,
+                                item.id, 
+                                item.blog.id, 
+                                item.post.id, 
                                 item.author.displayName, 
                                 item.author.url, 
                                 item.published, 
@@ -212,7 +213,7 @@ const model = (function () {
                         );
                     }
                 }
-                callback(result.items);
+                callback(comments_n);
             });
         },
 
