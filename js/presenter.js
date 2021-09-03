@@ -15,19 +15,19 @@ const presenter = (function () {
     let owner = undefined;
     let detail = false;
 
-    // Initialisiert die allgemeinen Teile der Seite
+    // initializes main part from the website
     function initPage() {
-        console.log('initpage() called');
+        console.log('- initpage() called');
         model.getSelf((result) => {
             owner = result.displayName;
-            console.log(`user ${owner} logged in.`);
+            console.log(`- user ${owner} logged in.`);
 
             model.getAllBlogs((blogs) => {
                 if(blogs === undefined) 
                     return;
                 
-                // Wenn blogId -1 ist, wird der Blog, welcher zuletzt geändert
-                // wurde, angezeigt. Sonst wird der Blog mit der id in blogId angezeigt.
+                // blogId = -1 => last showed blog
+                // else blog with the id in blogId
                 if(blogId === -1){
                     let mostRecent;
                     for(let blog_i of blogs){
@@ -56,7 +56,7 @@ const presenter = (function () {
         });
     }
     
-        // Aktualisiert die Kurzzusammenfassung des Blogs, der derzeitig angezeigt wird
+        // shows info from current blog in the top tile besides the bloglist
     function updateCurrentBlogTile(id) {
         if(id === undefined || id === -1) 
             return;
@@ -72,7 +72,7 @@ const presenter = (function () {
         });
     }
     
-    // Eventhandler für Navigation
+    // Eventhandler for Navigation
     function handleClicks(event) {
         let source = null;
         switch(event.target.tagName){
@@ -103,8 +103,7 @@ const presenter = (function () {
     }
     
     
-    // Sorgt dafür, dass bei einem nicht-angemeldeten Nutzer nur noch der Name der Anwendung
-    // und der Login-Button angezeigt wird.
+    // sets values to only show basic login page
     function loginPage() {
         console.log("call from loginPage()");
         if(owner!== undefined) console.log(`user ${owner} logged out.`);
@@ -114,8 +113,7 @@ const presenter = (function () {
         owner = undefined;
     }
     
-    // Entfernt möglichen Inhalt aus dem Element mit der id "id" und fügt das 
-    // Element "element" als Kind hinzu.  
+    // remove possible content from div with "id" and appends "element" as child
     function replace(id, element){
         let main = document.getElementById(id);
         let content = main.firstElementChild;
@@ -125,7 +123,7 @@ const presenter = (function () {
             main.append(element);
     }
     
-    // Setzt das innerHTML Attribut im Element mit der id "id" zum Wert in "text"
+    // sets innerHTML attribute in Element with id "id" to value in "text"
     function replaceText(id, text){
         let main = document.getElementById(id);
         if(main)
@@ -137,7 +135,7 @@ const presenter = (function () {
     return {
         // Wird vom Router aufgerufen, wenn die Startseite betreten wird
         showStartPage() {
-            console.log("call presenter.showStartPage()");
+            console.log("--- call presenter.showStartPage()");
             // Wenn vorher noch nichts angezeigt wurde, d.h. beim Einloggen
             if (model.isLoggedIn()) { // Wenn der Nutzer eingeloggt ist
                 initPage();

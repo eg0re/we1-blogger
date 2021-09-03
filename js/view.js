@@ -1,8 +1,8 @@
 "use strict";
 
 const util = {
-    // Nimmt alle Attribute von object und ersetzt gleichnamige, mit %<name>%
-    // gekennzeichnete Wörter im innerHTML von element mit dem Attributwert
+    // takes all attributes from object and replaces tags with same name (%<name>%)
+    // in innerHTML
     setDataInfo(element, object) {
         let cont = element.innerHTML;
         for (let key in object) {
@@ -23,7 +23,6 @@ const util = {
 const initPageView = {
     // Erstellt eine View für die Startseite
     render(blogs) {
-        console.log("creating view for main page");
         if(!blogs) 
             return;
 
@@ -35,7 +34,7 @@ const initPageView = {
             let blogInfo = liTempl.cloneNode(true);
             let wrapper = document.createElement("DIV");
             wrapper.appendChild(blogInfo);
-            console.log("filling data info");
+            console.log("-- appending li for blog(" + b.b_name + ")");
             util.setDataInfo(wrapper, b);
             cont.appendChild(wrapper.firstElementChild);
         }
@@ -55,7 +54,7 @@ const blogView = {
             let articlePostTempl = util.childCloneNode("blog-overview-post", true);
             util.setDataInfo(articlePostTempl, post);
             cont.append(articlePostTempl);
-            console.log("-- adding post to view (" + post.p_id + ")");
+            console.log("-- adding post to view (" + post.p_title + ")");
         }
         return cont;
     }
