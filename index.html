@@ -55,7 +55,7 @@ and open the template in the editor.
                 <h2>%b_name%</h2>
                 <a href="%b_url%" rel="external" target="_blank">
                     <!-- Quelle 21.12.20: https://commons.wikimedia.org/wiki/File:Blogger.svg-->
-                    <img src="../images/blogger_logo.svg" alt="Blogger Icon" width="30" height="30">
+                    <img src="/images/blogger_logo.svg" alt="Blogger Icon" width="30" height="30">
                 </a>
             </div>
             <p class="secondary-info">%b_nrposts% Post(s)</p>
@@ -64,18 +64,23 @@ and open the template in the editor.
         </div>
         
         <div id="templ-blog-overview">
-            <header>
+            <header class="blog_overview_header">
                     <h3>Blog Übersicht</h3>
                     <nav>
-                        <!--post hinzufuegen button-->
+                        <ul id="button-post-add">
+                            <li data-path="/edit/%b_id%">Post hinzufügen</li>
+                        </ul>
                     </nav>
             </header>
 
             <article id="blog-overview-post" class="blog-overview-post">
                 <header>
                     <a href="/detailView/%b_id%/%p_id%">%p_title%</a>
-                    <nav>
-                        <!--post editieren, post loeschen Button-->
+                    <nav class="detail_view_section_buttons">
+                        <ul id="button-post-transform" >
+                            <li data-action="deletePost" data-id="%p_id%">Post löschen</li>
+                            <li data-path="/edit/%b_id%/%p_id%">Post editieren</li>
+                        </ul>
                     </nav>
                 </header>
                     <p class="secondary-info">veröffentlicht: %p_creationdate_f%</p>
@@ -104,8 +109,11 @@ and open the template in the editor.
                         <section class="post_content">%p_content%</section>
 
                         <footer>
-                            <nav>
-                                <!--delete/edit post-->
+                            <nav class="detail_view_section_buttons">
+                                <ul id="button-post-transform" >
+                                    <li data-action="deletePost" data-id="%p_id%">Post löschen</li>
+                                    <li data-path="/edit/%b_id%/%p_id%">Post editieren</li>
+                                </ul>
                             </nav>
                         </footer>
                 </article>
@@ -128,11 +136,50 @@ and open the template in the editor.
 
                         <footer>
                             <nav>
-                                <!--kommentar loeschen button-->
+                                <ul id="button-comment-delete">
+                                    <li data-action="deleteComment" data-id="%c_id%">Kommentar löschen</li>
+                                </ul>
                             </nav>
                         </footer>
                     </section>
                 </article>
+        </div>
+        
+        <div id="templ-add-post">
+            <form id="newPost" method="get">
+                <fieldset>
+                    <legend>Neuer Post</legend>
+                    <ul>
+                        <li>
+                            <label for="title">Titel</label>
+                            <input id="title" type="text" size="50" name="title" placeholder="Titel..." required>
+                        </li>
+                        <li>
+                            <textarea id="self" name="self" cols="50" rows="30" placeholder="Inhalt..."></textarea>
+                        </li>
+                    </ul>
+                    <nav>
+                        <button type="submit" name="button" value="send"> Speichern </button>
+                        <button type="reset"> Abbrechen </button>
+                    </nav>
+                </fieldset>
+            </form>
+        </div>
+
+        <div id="templ-edit-post">
+            <h3 class="post-editor-title">Post Editor</h3>
+            <div class="edit-post">
+                <div data-id="%p_id%" contentEditable="true" class="edit-post-title">%p_title%</div>
+                
+                <p>veröffentlicht: %p_creationdate_f%</p>
+                <p>zuletzt bearbeitet: %p_lastedit_f%</p>
+                
+                <div contentEditable="true" class="edit-post-content">%p_content%</div>
+                <nav>
+                    <button type="submit" name="button" value="send"> Speichern </button>
+                    <button type="reset"> Abbrechen </button>
+                </nav>
+            </div>
         </div>
     </div>
 </body>

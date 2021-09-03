@@ -48,7 +48,9 @@ const blogView = {
         console.log("- creating view for Blog(" + id + ")");
         let cont = document.createElement("div");
         let articleTempl = util.childCloneNode("templ-blog-overview", true);
-        cont.append(articleTempl.children[0]);
+        let header = articleTempl.children[0];
+        util.setDataInfo(header, posts[0]);
+        cont.append(header);
         for (const post of posts) {
             let articlePostTempl = util.childCloneNode("blog-overview-post", true);
             util.setDataInfo(articlePostTempl, post);
@@ -82,16 +84,77 @@ const detailView = {
             for (let c of comments) {
                 let temp = commentTempl.cloneNode(true);
                 util.setDataInfo(temp, c);
-                console.log("SAODIJASOIDJ");
-                console.log(temp);
                 commentSection.appendChild(temp);
-                console.log("AAAAAAAAAAA");
-                console.log(temp);
+                console.log("-- appending comment to view (" + c.c_id + ")");
             }
         }
         
         util.setDataInfo(cont, post);
-        console.log(cont);
+        return cont;
+    }
+};
+
+const addPostView = {
+    // Erstellt eine View für das Hinzufügen von Posts
+    render(blogId) {
+        let buttonHandler = function (event){
+            switch(event.target.type){
+                case "submit":
+                    event.preventDefault();
+                    if(!confirm("Wollen sie den Post wirklich veröffentlichen?")) 
+                        return;
+                    let f = document.forms.postInput;
+                    model.addNewPost(blogId, f.elements.title.value, f.elements.self.value, (post) => {
+                        if(!post) 
+                            return;
+                        presenter.updateCurrentBlog();
+                        router.navigateToPage("/detailView/" + post.blog.id + "/" + post.id);
+                    });
+                    break;
+                case "reset":
+                    router.navigateToPage("/blogOverview/" + blogId);
+                    break;
+            }
+        };
+        let cont = util.childCloneNode("templ-add-post", true);
+        let f = cont.firstElementChild;
+        f.setAttribute("name", "postInput");
+        let navTag = cont.querySelector("nav");
+        navTag.addEventListener("click", buttonHandler);
+        return cont;
+    }
+};
+
+const editPostView = {
+    // Erstellt eine View für das Editieren von Posts
+    render(post) {
+        let buttonHandler = function(event){
+            let routingTarget = "/detailView/" + post.b_id + "/" + post.p_id;
+            switch(event.target.type){
+                case "submit":
+                    event.preventDefault();
+                    if(!confirm("Wollen sie den Post wirklich editieren?")) 
+                        return;
+
+                    let wrapperDiv = event.target.closest(".edit-post");
+                    let divs = wrapperDiv.querySelectorAll("div");
+                    let titleDiv = divs[0];
+                    let contentDiv = divs[1];
+                    model.updatePost(post.b_id, titleDiv.dataset.id, titleDiv.innerHTML, contentDiv.innerHTML, (post) => {
+                        if(post) 
+                            router.navigateToPage(routingTarget);
+                    });
+                    break;
+                case "reset":
+                    router.navigateToPage(routingTarget);
+                    break;
+            }
+        };
+        
+        let cont = util.childCloneNode("templ-edit-post", true);
+        util.setDataInfo(cont, post);
+        let navTag = cont.querySelector("NAV");
+        navTag.addEventListener("click", buttonHandler);
         return cont;
     }
 };

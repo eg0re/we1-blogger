@@ -54,17 +54,17 @@ const router = (function () {
     // Übersicht eines Blogs mit allen Posts
     router.addRoute('blogOverview', function (url) {
         // Get the index of which blog we want to show and call the appropriate function.
-        let blogId = url.split('blogOverview/')[1].trim();
-        presenter.showOverview(blogId);
+        let bid = url.split('blogOverview/')[1].trim();
+        presenter.showOverview(bid);
     });
     
     // Detailansicht eines Posts
     router.addRoute('detailView', function (url){
        let idPath = url.split('detailView/')[1].trim();
        let ids = idPath.split('/');
-       let blogId = ids[0];
-       let postId = ids[1];
-       presenter.showPostDetailView(blogId, postId);
+       let bid = ids[0];
+       let pid = ids[1];
+       presenter.showPostDetailView(bid, pid);
     });
     
     // Wenn nach edit/blogId eine postId vorhanden ist Bearbeiten-Ansicht, wenn 
@@ -72,13 +72,13 @@ const router = (function () {
     router.addRoute('edit', function(url){
        let idPath = url.split('/edit/')[1];
        let ids = idPath.split('/');
-       let blogId = ids[0];
-       let postId = ids[1];
-       if(postId){
-           postId = postId.trim();
-           presenter.showEditPostView(blogId, postId);
+       let bid = ids[0];
+       let pid = ids[1];
+       if(pid){
+           pid = pid.trim();
+           presenter.showEditPostView(bid, pid);
        }else{
-           presenter.showAddPostView(blogId);
+           presenter.showAddPostView(bid);
        }
     });
     

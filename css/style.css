@@ -247,7 +247,7 @@ a {
 }
 
 /*buttons*/
-.blog_overview_header>div>nav>ul,
+.blog_overview_header>nav>ul,
 .detail_view_section_buttons>ul,
 .comments>footer>nav>ul {
   width: 25rem;
@@ -261,7 +261,7 @@ a {
 button,
 .blog-overview-post>nav>ul>li,
 .detail_view_section_buttons>ul>li,
-.blog_overview_header>div>nav>ul>li,
+.blog_overview_header>nav>ul>li,
 .comments>footer>nav>ul>li {
   background: black;
   border-radius: 2rem;
@@ -276,18 +276,18 @@ button,
 }
 
 .detail_view_section_buttons>ul>li:nth-child(even),
-.blog_overview_header>div>nav>ul>li:nth-child(even),
+.blog_overview_header>nav>ul>li:nth-child(even),
 .blog-overview-post>nav>ul>li:nth-child(even) {
   color: black;
   background: white;
   border: 2px solid black;
 }
 
-.blog_overview_header>div>nav {
+.blog_overview_header>nav {
   margin-left: 2rem;
 }
 
-.blog_overview_header>div>nav>ul>li {
+.blog_overview_header>nav>ul>li {
   margin-bottom: 0;
 }
 
@@ -409,12 +409,12 @@ button,
   margin: 1.5rem 0 1.6rem 2.5rem;
 }
 
-.blog_overview_header>div {
+.blog_overview_header {
   display: flex;
   align-items: center;
 }
 
-.blog_overview_header>div>h2 {
+.blog_overview_header>h2 {
   margin-top: 0;
 }
 

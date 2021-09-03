@@ -164,22 +164,84 @@ const presenter = (function () {
         },
         
         // Wird gecalled, wenn eine Post Detailansicht angezeigt werden soll
-        showPostDetailView(blogId, postId) {
-            console.log(`--- call presenter.showDetailView(${blogId} - ${postId}) ---`);
+        showPostDetailView(bid, pid) {
+            console.log(`--- call presenter.showDetailView(${bid} - ${pid}) ---`);
             detail = true;
             if (!init)
                 initPage();
-            model.getPost(blogId, postId,  (post) => {
+            model.getPost(bid, pid,  (post) => {
                 post.setFormatDates(true);
                 
-                model.getAllCommentsOfPost(blogId, postId, (comments) => {
+                model.getAllCommentsOfPost(bid, pid, (comments) => {
                     comments.forEach(c => c.setFormatDates(true));
                     let page = detailView.render(post, comments);
                     page.addEventListener("click", handleActions);
-                    replace('main-content', page); 
+                    replace('main-content', page);
+                    console.log("--- replace main-content with detail-view ---");
                 });
             });
+        },
+        
+        // Wird vom Router aufgerufen, wenn eine Editier-Ansicht angezeigt werden soll
+        showEditPostView(bid, pid){
+            console.log(`Aufruf von presenter.showEditPostView(${bid},${pid})`);
+            if(!init) 
+                initPage();
+            blogId = bid;
+            model.getPost(blogId, pid, (post) => {
+                post.setFormatDates(true);
+                let view = editPostView.render(post);
+                replace("main-content", view);
+            });
+        },
+        
+        // Wird vom Router aufgerufen, wenn eine Post-Hinzufügen-Ansicht angezeigt werden soll
+        showAddPostView(bid){
+            console.log(`Aufruf von presenter.showAddPostView(${bid})`);
+            if(!init) 
+                initPage();
+            blogId = bid;
+            let view = addPostView.render(blogId);
+            replace("main-content", view);
+        },
+        
+        // Wird vom action Eventhandler aufgerufen. wenn ein Post gelöscht werden soll
+        deletePost(pid, source){
+            console.log(`Aufruf von presenter.deletePost(${pid}, ${source})`);
+            if(!confirm("Wollen sie den Post wirklich loeschen?"))
+                return;
+            model.deletePost(blogId, pid, () => {
+                updateCurrentBlogTile(blogId);
+                if(!detail){
+                    let post = source.closest("section");
+                    post.remove();
+                }else{
+                    router.navigateToPage("/blogOverview/" + blogId);
+                }
+            });
+        },
+        
+        // Wird vom action Eventhandler aufgerufen, wenn ein Kommentar gelöscht werden soll
+        deleteComment(cid, source){
+            console.log(`Aufruf von presenter.deleteComment(${cid}, ${source})`);
+            if(!confirm("Wollen sie den Kommentar wirklich loeschen?"))
+                return;
+            model.deleteComment(blogId, postId, cid, () => {
+                let art = source.closest("ARTICLE");
+                let head = art.parentElement.querySelector(".comments-header");
+                art.remove();
+                console.log(head.innerHTML);
+                let nrComments = +head.innerHTML.split(" ")[0];
+                head.innerHTML = `${nrComments - 1} Kommentar(e)`;
+                console.log("Comment has been deleted");
+            });
+        },
+        
+        updateCurrentBlog(){
+            updateCurrentBlogTile(blogId);
         }
+        
+        
     };
     
 })();
